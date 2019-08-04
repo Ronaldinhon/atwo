@@ -34,8 +34,7 @@ services:
       - 'redis'
     build:
       context: ./atwo-rails
-      dockerfile: Dockerfile
-    command: sidekiq -C config/sidekiq.yml.erb
+      dockerfile: Dockerfile.sidekiq
     volumes:
       - './atwo-rails/:/app'
     env_file:
@@ -46,8 +45,7 @@ services:
       - 'redis'
     build:
       context: ./atwo-rails
-      dockerfile: Dockerfile
-    command: puma -p 28080 cable/config.ru
+      dockerfile: Dockerfile.cable
     ports:
       - '28080:28080'
     volumes:
@@ -58,7 +56,7 @@ services:
   frontend:
     build:
       context: ./atwo-react-2
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     expose:
       - '3001'
     volumes:
