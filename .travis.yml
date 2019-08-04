@@ -1,0 +1,26 @@
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t mrdr/atwo-rails ./atwo-rails
+  - docker build -t mrdr/atwo-react-2 ./atwo-react-2
+
+script:
+  - docker run mrdr/atwo-rails rspec
+  - docker run -e CI=true mrdr/atwo-react-2 npm test
+
+after_success:
+  - docker build -t mrdr/atwo-nginx ./atwo-nginx
+  - docker build -t mrdr/atwo-react-2 ./atwo-react-2
+  - docker build -t mrdr/atwo-rails ./atwo-rails
+  - docker build -t mrdr/atwo-sidekiq -f ./atwo-rails/Dockerfile.sidekiq ./atwo-rails
+  - docker build -t mrdr/atwo-cable -f ./atwo-rails/Dockerfile.cable ./atwo-rails
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+
+  - docker push mrdr/atwo-nginx
+  - docker push mrdr/atwo-react-2 
+  - docker push mrdr/atwo-rails 
+  - docker push mrdr/atwo-sidekiq 
+  - docker push mrdr/atwo-cable 
