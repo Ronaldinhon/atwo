@@ -3,14 +3,16 @@ services:
   - docker
 
 before_install:
-  - docker build -t mrdr/atwo-rails ./atwo-rails
   - docker build -t mrdr/atwo-react-2 ./atwo-react-2
+  - docker-compose up -d
 
 script:
-  - docker run mrdr/atwo-rails rspec
   - docker run -e CI=true mrdr/atwo-react-2 npm test
+  - docker-compose run website rspec
 
 after_success:
+  - docker-compose down
+
   - docker build -t mrdr/atwo-nginx ./atwo-nginx
   - docker build -t mrdr/atwo-react-2 ./atwo-react-2
   - docker build -t mrdr/atwo-rails ./atwo-rails
