@@ -21,7 +21,7 @@ after_success:
   - docker build -t mrdr/atwo-sidekiq -f ./atwo-rails/Dockerfile.sidekiq ./atwo-rails
   - docker build -t mrdr/atwo-cable -f ./atwo-rails/Dockerfile.cable ./atwo-rails
 
-  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
   - docker push mrdr/atwo-nginx
   - docker push mrdr/atwo-react-2 
