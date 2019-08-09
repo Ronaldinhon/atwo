@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t mrdr/atwo-react-2 -f Dockerfile.dev ./atwo-react-2
+  - docker build -t mrdr/atwo-react-2 -f ./atwo-react-2/Dockerfile.dev ./atwo-react-2
   - docker-compose up -d
   - docker-compose exec website rails db:reset
   - docker-compose exec website rails db:migrate
