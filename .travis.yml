@@ -15,7 +15,7 @@ script:
 after_success:
   - docker-compose down
 
-  - docker build -t mrdr/atwo-nginx ./atwo-nginx
+  - docker build -t mrdr/atwo-nginx -f ./atwo-nginx/Dockerfile.dev ./atwo-nginx
   - docker build -t mrdr/atwo-react-2 ./atwo-react-2
   - docker build -t mrdr/atwo-rails ./atwo-rails
   - docker build -t mrdr/atwo-sidekiq -f ./atwo-rails/Dockerfile.sidekiq ./atwo-rails
