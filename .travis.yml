@@ -5,6 +5,8 @@ services:
 before_install:
   - docker build -t mrdr/atwo-react-2 ./atwo-react-2
   - docker-compose up -d
+  - docker-compose exec website rails db:reset
+  - docker-compose exec website rails db:migrate
 
 script:
   - docker run -e CI=true mrdr/atwo-react-2 npm test
