@@ -1,0 +1,47 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"containerDefinitions": [
+		{
+			"name": "website",
+			"image": "mrdr/atwo-rails",
+			"hostname": "website",
+			"essential": false,
+			"memory": 128
+		},
+		{
+			"name": "frontend",
+			"image": "mrdr/atwo-react-2",
+			"hostname": "frontend",
+			"essential": false,
+			"memory": 128
+		},
+		{
+			"name": "sidekiq",
+			"image": "mrdr/atwo-sidekiq",
+			"hostname": "sidekiq",
+			"essential": false,
+			"memory": 128
+		},
+		{
+			"name": "cable",
+			"image": "mrdr/atwo-cable",
+			"hostname": "cable",
+			"essential": false,
+			"memory": 128
+		},
+		{
+			"name": "nginx",
+			"image": "mrdr/atwo-nginx",
+			"hostname": "nginx",
+			"essential": true,
+			"portMappings": [
+				{
+					"hostPort": 80,
+					"containerPort": 80
+				}
+			],
+		"links": ["website", "frontend"],
+		"memory": 128
+		}
+	]
+}
