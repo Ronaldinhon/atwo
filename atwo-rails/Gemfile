@@ -57,7 +57,7 @@ gem 'rack-cors'
 
 gem 'active_model_serializers', '~> 0.10.0'
 
-gem 'httparty', '~> 0.17.0'
+gem 'httparty', '~> 0.21.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in your code to drop into a debugger console
